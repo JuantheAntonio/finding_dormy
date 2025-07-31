@@ -203,7 +203,7 @@
                 if (data.success) {
                     showMessage(`Welcome back, ${data.user.username}!`, 'success');
                     setTimeout(() => {
-                        window.location.href = '/dashboard';
+                        window.location.href = 'mainweb.html';
                     }, 1500);
                 } else {
                     showMessage(data.message, 'error');
