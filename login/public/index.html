@@ -139,7 +139,7 @@
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="login.php" method="post">
+                <form id="loginForm" method="post">
                     <h2>LOGIN</h2>
                     <div class="inputbox">
                         <input type="text" name="username" required>
@@ -150,12 +150,12 @@
                         <label for="">Password</label>
                     </div>
                     <div class="forget">
-                        <label for=""><input type="checkbox">Remember Me</label>
+                        <label><input type="checkbox" name="remember">Remember Me</label>
                         <a href="#">Forget Password</a>
                     </div>
                     <button type="submit">Log in</button>
                     <div class="register">
-                        <p>No account? Create one <a href="#">Sign-up</a></p>
+                        <p>No account <a href="#">Register</a></p>
                     </div>
                 </form>
             </div>
@@ -166,44 +166,58 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
     <script>
-        // Basic username and password logic
-        const validCredentials = {
-            'admin': 'password123',
-            'user1': 'mypass456',
-            'dormy': 'findme789',
-            'student': 'college123'
-        };
-
         // Get form elements
-        const form = document.querySelector('form');
+        const form = document.getElementById('loginForm');
         const usernameInput = document.querySelector('input[name="username"]');
         const passwordInput = document.querySelector('input[name="password"]');
+        const rememberCheckbox = document.querySelector('input[name="remember"]');
+        const submitButton = document.querySelector('button[type="submit"]');
 
         // Add event listener for form submission
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
             
             const username = usernameInput.value.trim();
             const password = passwordInput.value;
+            const remember = rememberCheckbox.checked;
             
-            // Validate credentials
-            if (validateLogin(username, password)) {
-                showMessage('Login successful! Welcome, ' + username + '!', 'success');
-                // Simulate redirect after successful login
-                setTimeout(() => {
-                    showMessage('Redirecting to dashboard...', 'info');
-                }, 1500);
-            } else {
-                showMessage('Invalid username or password. Please try again.', 'error');
-                // Clear password field on failed login
-                passwordInput.value = '';
+            // Disable submit button during request
+            submitButton.disabled = true;
+            submitButton.textContent = 'Logging in...';
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        remember: remember
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage(`Welcome back, ${data.user.username}!`, 'success');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                } else {
+                    showMessage(data.message, 'error');
+                    passwordInput.value = '';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('Connection error. Please try again.', 'error');
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Log in';
             }
         });
-
-        // Function to validate login credentials
-        function validateLogin(username, password) {
-            return validCredentials[username] && validCredentials[username] === password;
-        }
 
         // Function to show messages
         function showMessage(message, type) {
@@ -231,6 +245,7 @@
                 z-index: 1000;
                 opacity: 0;
                 transition: opacity 0.3s ease;
+                backdrop-filter: blur(10px);
             `;
             
             if (type === 'success') {
@@ -257,14 +272,14 @@
             document.body.appendChild(messageDiv);
             setTimeout(() => messageDiv.style.opacity = '1', 100);
             
-            // Remove message after 3 seconds
+            // Remove message after 4 seconds
             setTimeout(() => {
                 messageDiv.style.opacity = '0';
                 setTimeout(() => messageDiv.remove(), 300);
-            }, 3000);
+            }, 4000);
         }
 
-        // Add some visual feedback for input focus
+        // Add visual feedback for input focus
         const inputs = document.querySelectorAll('.inputbox input');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -276,10 +291,22 @@
             });
         });
 
+        // Check if user is already logged in
+        fetch('/api/session')
+            .then(response => response.json())
+            .then(data => {
+                if (data.authenticated) {
+                    window.location.href = '/dashboard';
+                }
+            })
+            .catch(error => {
+                console.log('Session check failed:', error);
+            });
+
         // Display demo credentials on page load
         window.addEventListener('load', function() {
             setTimeout(() => {
-                showMessage('Demo credentials - Username: admin, Password: password123', 'info');
+                showMessage('Demo: Username: admin | Password: password123', 'info');
             }, 1000);
         });
     </script>
