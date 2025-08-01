@@ -4,6 +4,8 @@ version 1
     1. mainweb
     2. log-in(named index.html)
     3. server.js
+    4. sign up
 
   Next in line:
-    Sign-up
+1. separate student and landlord accounts
+
