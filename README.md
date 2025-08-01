@@ -8,9 +8,11 @@ version 1
 
   Next in line:
 1. separate student and landlord accounts
-2. create a new button for landlords to apply 
-3. create a copy of mainweb for logged in
-4. create a profile page
-5. 
-6. create the find roommate forum
+2. connect signup.html to server.js
+3. listings part
+4. create a new button for landlords to apply 
+5. create a copy of mainweb for logged in
+6. create a profile page
+7. 
+8. create the find roommate forum
 
