@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finding Dormy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fafafa;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo-button {
+      font-size: 24px;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .logo-button span {
+      font-weight: normal;
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 50px;
+    }
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .circle-btn, .login-btn {
+      border: none;
+      background: #eee;
+      border-radius: 20px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    .circle-btn {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center;
+      background-color: #f2f2f2;
+      border-bottom: 1px solid #ccc;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .search-btn {
+      border: none;
+      background: #cbbebe;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 16px;
+    }
+    .search-btn:hover {
+      background: #b5a8a8;
+    }
+    .filter-btn {
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: none;
+      background-color: #ddd;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background-color: #cbbebe;
+      color: white;
+    }
+    .search-box {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      width: 200px;
+    }
+    h3 {
+      margin-bottom: 10px;
+    }
+    .listings {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .listing-box {
+      flex: 1 1 calc(33.333% - 20px);
+      height: 180px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      min-width: 100px;
+    }
+    @media (max-width: 768px) {
+      .listing-box {
+        flex: 1 1 100%;
+      }
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .search-container {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    @media (min-width: 600px) {
+      .search-box {
+        width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="logo-button">FINDING <span>Dormy</span></button>
+    
+    <div class="search-container">
+      <input type="text" class="search-box" placeholder="Search dorms..." oninput="handleSearch(this.value)">
+      <button class="search-btn">🔍</button>
+    </div>
+    
+    <div class="header-buttons">
+      <button class="circle-btn">M</button>
+      <button class="login-btn" onclick="window.location.href='index.html'">LOG-IN | SIGN-UP</button>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <select class="filter-btn">
+      <option value="">Select School</option>
+      <option value="upcebu">University of the Philippines-Cebu</option>
+      <option value="cdu">Cebu Doctors' University</option>
+      <option value="cit">Cebu Institute of Technology–University</option>
+      <option value="cnu">Cebu Normal University</option>
+      <option value="ctu">Cebu Technological University (Main Campus)</option>
+      <option value="swu">Southwestern University</option>
+      <option value="ucm">University of Cebu (Main Campus)</option>
+      <option value="ucb">University of Cebu – Banilad Campus</option>
+      <option value="uclm">University of Cebu – Lapu-Lapu & Mandaue Campus</option>
+      <option value="ucmetc">University of Cebu – Maritime Education and Training Center (METC)</option>
+      <option value="ucpt">University of Cebu – Pardo–Talisay Campus</option>
+      <option value="uscd">University of San Carlos (Downtown Campus)</option>
+      <option value="usct">University of San Carlos – Talamban Campus (USC-TC)</option>
+      <option value="usjr">University of San Jose–Recoletos (Main Campus)</option>
+      <option value="usjrb">University of San Jose–Recoletos – Basak Campus</option>
+      <option value="uspf">University of Southern Philippines Foundation</option>
+      <option value="uv">University of the Visayas (Main Campus)</option>
+    </select>
+    <select class="filter-btn">
+      <option value="">Sort Price</option>
+      <option value="3000">P3,000</option>
+      <option value="5000">P5,000</option>
+      <option value="8000">P8,000</option>
+      <option value="10000">P10,000</option>
+    </select>
+    <select class="filter-btn">
+      <option value="">Accommodation</option>
+      <option value="1pax">1 PAX</option>
+      <option value="2pax">2 PAX</option>
+      <option value="4pax">4 PAX</option>
+    </select>
+    <button class="filter-btn">Find Roommate</button>
+  </div>
+
+  <div class="section">
+    <h3 style="text-align: left;">Popular:</h3>
+
+    <div class="listings">
+      <div class="listing-box"></div>
+      <div class="listing-box"></div>
+      <div class="listing-box"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3 style="text-align: left">All Listings:</h3>
+    <div class="listings">
+      <div class="listing-box"></div>
+      <div class="listing-box"></div>
+      <div class="listing-box"></div>
+    </div>
+  </div>
+</body>
+</html>
