@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDING DORMY - Sign Up</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins', sans-serif;
+        }
+        
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: cover;
+            padding: 20px 0;
+        }
+        
+        .form-box {
+            position: relative;
+            width: 400px;
+            height: auto;
+            min-height: 550px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 30px;
+            box-sizing: border-box;
+        }
+        
+        .form-value {
+            width: 100%;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .inputbox {
+            position: relative;
+            margin: 25px 0;
+            width: 100%;
+            border-bottom: 2px solid #fff;
+        }
+        
+        .inputbox label {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 1em;
+            pointer-events: none;
+            transition: .5s;
+        }
+        
+        input:focus ~ label,
+        input:valid ~ label {
+            top: -5px;
+        }
+        
+        .inputbox input {
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            padding: 0 35px 0 5px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        
+        .inputbox input::placeholder {
+            color: transparent;
+        }
+        
+        .inputbox ion-icon {
+            position: absolute;
+            right: 8px;
+            color: #fff;
+            font-size: 1.2em;
+            top: 20px;
+        }
+        
+        .checkbox-group {
+            margin: 20px 0;
+            font-size: .9em;
+            color: #fff;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            position: static;
+            transform: none;
+            top: auto;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+            width: auto;
+            height: auto;
+            position: static;
+        }
+        
+        .checkbox-group a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+        
+        button {
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            background: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .login-link {
+            font-size: .9em;
+            color: #fff;
+            text-align: center;
+            margin: 25px 0 10px;
+        }
+        
+        .login-link p a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .login-link p a:hover {
+            text-decoration: underline;
+        }
+        
+        .password-strength {
+            font-size: 0.8em;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-weak { color: #ff6b6b; }
+        .strength-medium { color: #ffd93d; }
+        .strength-strong { color: #51cf66; }
+        
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.8em;
+            margin-top: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .error-message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <form id="signupForm" method="post">
+                    <h2>SIGN UP</h2>
+                    
+                    <div class="inputbox">
+                        <input type="text" name="fullname" required>
+                        <label>Full Name</label>
+                        <ion-icon name="person-outline"></ion-icon>
+                        <div class="error-message" id="fullname-error"></div>
+                    </div>
+                    
+                    <div class="inputbox">
+                        <input type="email" name="email" required>
+                        <label>Email Address</label>
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+                    
+                    <div class="inputbox">
+                        <input type="text" name="username" required>
+                        <label>Username</label>
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        <div class="error-message" id="username-error"></div>
+                    </div>
+                    
+                    <div class="inputbox">
+                        <input type="password" name="password" required>
+                        <label>Password</label>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <div class="password-strength" id="password-strength"></div>
+                        <div class="error-message" id="password-error"></div>
+                    </div>
+                    
+                    <div class="inputbox">
+                        <input type="password" name="confirmPassword" required>
+                        <label>Confirm Password</label>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <div class="error-message" id="confirm-password-error"></div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="newsletter">
+                            Subscribe to newsletter for updates
+                        </label>
+                    </div>
+                    
+                    <button type="submit">Create Account</button>
+                    
+                    <div class="login-link">
+                        <p>Already have an account? <a href="index.html">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+    <script>
+        // Get form elements
+        const form = document.getElementById('signupForm');
+        const fullnameInput = document.querySelector('input[name="fullname"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const usernameInput = document.querySelector('input[name="username"]');
+        const passwordInput = document.querySelector('input[name="password"]');
+        const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
+        const termsCheckbox = document.querySelector('input[name="terms"]');
+        const newsletterCheckbox = document.querySelector('input[name="newsletter"]');
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            const strengthElement = document.getElementById('password-strength');
+            let strength = 0;
+            let feedback = '';
+
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            switch (strength) {
+                case 0:
+                case 1:
+                case 2:
+                    strengthElement.textContent = 'Weak password';
+                    strengthElement.className = 'password-strength strength-weak';
+                    break;
+                case 3:
+                case 4:
+                    strengthElement.textContent = 'Medium strength';
+                    strengthElement.className = 'password-strength strength-medium';
+                    break;
+                case 5:
+                    strengthElement.textContent = 'Strong password';
+                    strengthElement.className = 'password-strength strength-strong';
+                    break;
+            }
+
+            return strength >= 3;
+        }
+
+        // Real-time validation
+        passwordInput.addEventListener('input', function() {
+            if (this.value) {
+                checkPasswordStrength(this.value);
+            } else {
+                document.getElementById('password-strength').textContent = '';
+            }
+        });
+
+        confirmPasswordInput.addEventListener('input', function() {
+            const errorElement = document.getElementById('confirm-password-error');
+            if (this.value && this.value !== passwordInput.value) {
+                showFieldError('confirm-password-error', 'Passwords do not match');
+            } else {
+                hideFieldError('confirm-password-error');
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value && !emailRegex.test(this.value)) {
+                showFieldError('email-error', 'Please enter a valid email address');
+            } else {
+                hideFieldError('email-error');
+            }
+        });
+
+        usernameInput.addEventListener('input', function() {
+            const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+            if (this.value && !usernameRegex.test(this.value)) {
+                showFieldError('username-error', 'Username must be 3-20 characters, letters, numbers, and underscores only');
+            } else {
+                hideFieldError('username-error');
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate all fields
+            let isValid = true;
+            
+            if (!fullnameInput.value.trim()) {
+                showFieldError('fullname-error', 'Full name is required');
+                isValid = false;
+            }
+            
+            if (!emailInput.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                showFieldError('email-error', 'Valid email address is required');
+                isValid = false;
+            }
+            
+            if (!usernameInput.value.trim() || !/^[a-zA-Z0-9_]{3,20}$/.test(usernameInput.value)) {
+                showFieldError('username-error', 'Valid username is required');
+                isValid = false;
+            }
+            
+            if (!passwordInput.value || !checkPasswordStrength(passwordInput.value)) {
+                showFieldError('password-error', 'Password must be stronger');
+                isValid = false;
+            }
+            
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                showFieldError('confirm-password-error', 'Passwords do not match');
+                isValid = false;
+            }
+            
+            if (!termsCheckbox.checked) {
+                showMessage('You must agree to the Terms of Service', 'error');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Disable submit button during request
+            submitButton.disabled = true;
+            submitButton.textContent = 'Creating Account...';
+            
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        fullname: fullnameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        username: usernameInput.value.trim(),
+                        password: passwordInput.value,
+                        newsletter: newsletterCheckbox.checked
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage('Account created successfully! Redirecting to login...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    showMessage(data.message || 'Registration failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showMessage('Connection error. Please try again.', 'error');
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Create Account';
+            }
+        });
+
+        // Helper functions
+        function showFieldError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        function hideFieldError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = '';
+            errorElement.classList.remove('show');
+        }
+
+        // Function to show messages
+        function showMessage(message, type) {
+            // Remove existing message if any
+            const existingMessage = document.querySelector('.signup-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'signup-message';
+            messageDiv.textContent = message;
+            
+            // Style the message based on type
+            const baseStyles = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-size: 0.9em;
+                font-weight: 500;
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                backdrop-filter: blur(10px);
+                max-width: 90%;
+                text-align: center;
+            `;
+            
+            if (type === 'success') {
+                messageDiv.style.cssText = baseStyles + `
+                    background: rgba(34, 197, 94, 0.9);
+                    color: white;
+                    border: 1px solid rgba(34, 197, 94, 0.5);
+                `;
+            } else if (type === 'error') {
+                messageDiv.style.cssText = baseStyles + `
+                    background: rgba(239, 68, 68, 0.9);
+                    color: white;
+                    border: 1px solid rgba(239, 68, 68, 0.5);
+                `;
+            } else {
+                messageDiv.style.cssText = baseStyles + `
+                    background: rgba(59, 130, 246, 0.9);
+                    color: white;
+                    border: 1px solid rgba(59, 130, 246, 0.5);
+                `;
+            }
+
+            // Add to page and animate
+            document.body.appendChild(messageDiv);
+            setTimeout(() => messageDiv.style.opacity = '1', 100);
+            
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                messageDiv.style.opacity = '0';
+                setTimeout(() => messageDiv.remove(), 300);
+            }, 5000);
+        }
+
+        // Add visual feedback for input focus
+        const inputs = document.querySelectorAll('.inputbox input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.borderBottomColor = '#00ff88';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.borderBottomColor = '#fff';
+            });
+        });
+
+        // Clear all error messages when user starts typing
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    const fieldName = this.name;
+                    const errorElement = document.getElementById(fieldName + '-error');
+                    if (errorElement && fieldName !== 'password' && fieldName !== 'confirmPassword' && fieldName !== 'email' && fieldName !== 'username') {
+                        hideFieldError(fieldName + '-error');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
