@@ -49,12 +49,20 @@ const users = {
 
 // Routes
 
-// Serve the login page
+// Serve the preview page as landing page
 app.get('/', (req, res) => {
     if (req.session.user) {
         return res.redirect('/dashboard');
     }
     res.sendFile(path.join(__dirname, 'public', 'preview.html'));
+});
+
+// Serve the login page at /login route
+app.get('/login', (req, res) => {
+    if (req.session.user) {
+        return res.redirect('/dashboard');
+    }
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Handle login POST request
