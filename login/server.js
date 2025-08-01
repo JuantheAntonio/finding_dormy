@@ -48,8 +48,7 @@ const users = {
 };
 
 // Routes
-
-// Serve the preview page as landing page
+// This should come BEFORE the static middleware
 app.get('/', (req, res) => {
     if (req.session.user) {
         return res.redirect('/dashboard');
@@ -57,13 +56,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'preview.html'));
 });
 
-// Serve the login page at /login route
 app.get('/login', (req, res) => {
     if (req.session.user) {
         return res.redirect('/dashboard');
     }
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// Static middleware should come after specific routes
+app.use(express.static('public'));
 
 // Handle login POST request
 app.post('/login', (req, res) => {
