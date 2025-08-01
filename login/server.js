@@ -56,12 +56,12 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'preview.html'));
 });
 
-app.get('/login', (req, res) => {
-    if (req.session.user) {
-        return res.redirect('/dashboard');
-    }
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// app.get('/login', (req, res) => {
+//     if (req.session.user) {
+//         return res.redirect('/dashboard');
+//     }
+//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
 
 // Static middleware should come after specific routes
 app.use(express.static('public'));
