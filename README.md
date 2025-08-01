@@ -8,4 +8,5 @@ version 1
 
   Next in line:
 1. separate student and landlord accounts
+2. create the find roommate forum
 
