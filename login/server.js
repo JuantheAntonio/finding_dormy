@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
     if (req.session.user) {
         return res.redirect('/dashboard');
     }
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'preview.html'));
 });
 
 // Handle login POST request
