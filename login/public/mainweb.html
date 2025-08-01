@@ -125,9 +125,41 @@
   <div class="filter-bar">
     <input type="text" class="search-box" placeholder="Search dorms..." oninput="handleSearch(this.value)">
     <button class="filter-btn active">Search</button>
-    <button class="filter-btn">Distance</button>
-    <button class="filter-btn">Sort Price:</button>
-    <button class="filter-btn">Accomodation</button>
+    <select class="filter-btn">
+      <option value="">Select School</option>
+      <option value="upcebu">University of the Philippines-Cebu</option>
+      <option value="cdu">Cebu Doctors' University</option>
+      <option value="cit">Cebu Institute of Technology–University</option>
+      <option value="cnu">Cebu Normal University</option>
+      <option value="ctu">Cebu Technological University (Main Campus)</option>
+      <option value="swu">Southwestern University</option>
+      <option value="ucm">University of Cebu (Main Campus)</option>
+      <option value="ucb">University of Cebu – Banilad Campus</option>
+      <option value="uclm">University of Cebu – Lapu-Lapu & Mandaue Campus</option>
+      <option value="ucmetc">University of Cebu – Maritime Education and Training Center (METC)</option>
+      <option value="ucpt">University of Cebu – Pardo–Talisay Campus</option>
+      <option value="uscd">University of San Carlos (Downtown Campus)</option>
+      <option value="usct">University of San Carlos – Talamban Campus (USC-TC)</option>
+      <option value="usjr">University of San Jose–Recoletos (Main Campus)</option>
+      <option value="usjrb">University of San Jose–Recoletos – Basak Campus</option>
+      <option value="uspf">University of Southern Philippines Foundation</option>
+      <option value="uv">University of the Visayas (Main Campus)</option>
+
+      
+    </select>
+    <select class="filter-btn">
+      <option value="">Sort Price</option>
+      <option value="3000">P3,000</option>
+      <option value="5000">P5,000</option>
+      <option value="8000">P8,000</option>
+      <option value="10000">P10,000</option>
+    </select>
+    <select class="filter-btn">
+      <option value="">Accommodation</option>
+      <option value="1pax">1 PAX</option>
+      <option value="2pax">2 PAX</option>
+      <option value="4pax">4 PAX</option>
+    </select>
     <button class="filter-btn">Find Roommate</button>
   </div>
 
